@@ -48,3 +48,33 @@ export interface FilterState {
 
 export type SortKey = keyof EventRow;
 export type SortDir = "asc" | "desc";
+
+// Extended types for redesign
+export interface KPIDataExtended extends KPIData {
+  companiesTracked: number;
+  totalCapital: number;
+}
+
+export interface Headline {
+  text: string;
+  type: 'confirmed' | 'rumor' | 'datapoint';
+}
+
+export interface MonthlyTimelinePoint {
+  month: string;
+  calls: number;
+  confirmed: number;
+}
+
+export interface StageBreakdown {
+  name: string;
+  value: number;
+}
+
+export interface TopRound {
+  company: string;
+  amount: number;
+  amountLabel: string;
+  stage: string;
+  pct: number;
+}

@@ -15,18 +15,18 @@ export default function SummaryTable({ data }: Props) {
 
   return (
     <div className="glass-static overflow-hidden">
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto max-h-[600px] overflow-y-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-slate-100">
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400 w-8"></th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400 min-w-[200px]">
+              <th className="sticky top-0 bg-white z-10 px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400 w-8"></th>
+              <th className="sticky top-0 bg-white z-10 px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400 min-w-[200px]">
                 Company
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400 min-w-[110px]">
+              <th className="sticky top-0 bg-white z-10 px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400 min-w-[110px]">
                 Call Date
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
+              <th className="sticky top-0 bg-white z-10 px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
                 Note
               </th>
             </tr>

@@ -1,15 +1,34 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { EventRow, SummaryRow, FilterState, KPIData, SortKey, SortDir } from "@/lib/types";
-import { median } from "@/lib/utils";
+import { EventRow, SummaryRow, FilterState, SortKey, SortDir } from "@/lib/types";
+import {
+  calcKPIs,
+  calcMonthlyTimeline,
+  calcRoundStageBreakdown,
+  calcTopRounds,
+  buildHeadlines,
+} from "@/utils/calculations";
+import {
+  BarChart3,
+  TrendingUp,
+  PieChart as PieIcon,
+  Trophy,
+  Table2,
+  Users,
+  SlidersHorizontal,
+} from "lucide-react";
 import Header from "./Header";
+import HeadlinesTicker from "./HeadlinesTicker";
 import KPICards from "./KPICards";
 import FilterBar from "./FilterBar";
-import TabBar from "./TabBar";
+import SectionHeader from "./SectionHeader";
+import CallTimelineChart from "./CallTimelineChart";
+import DaysEarlyChart from "./DaysEarlyChart";
+import RoundStageDonut from "./RoundStageDonut";
+import TopRoundsList from "./TopRoundsList";
 import EventsTable from "./EventsTable";
 import SummaryTable from "./SummaryTable";
-import DaysEarlyChart from "./DaysEarlyChart";
 import DetailDrawer from "./DetailDrawer";
 import Footer from "./Footer";
 
@@ -52,7 +71,6 @@ export default function Dashboard({ rawEvents, rawSummaries }: Props) {
   );
 
   // State
-  const [tab, setTab] = useState<"events" | "summary">("events");
   const [filters, setFilters] = useState<FilterState>({
     scopes: [],
     confirmedOnly: false,
@@ -68,12 +86,10 @@ export default function Dashboard({ rawEvents, rawSummaries }: Props) {
   const filteredEvents = useMemo(() => {
     let result = [...events];
 
-    // Scope filter
     if (filters.scopes.length > 0) {
       result = result.filter((e) => filters.scopes.includes(e.scope));
     }
 
-    // Confirmed only
     if (filters.confirmedOnly) {
       result = result.filter(
         (e) =>
@@ -82,22 +98,16 @@ export default function Dashboard({ rawEvents, rawSummaries }: Props) {
       );
     }
 
-    // Date range
     if (filters.dateFrom) {
       const from = new Date(filters.dateFrom);
-      result = result.filter(
-        (e) => e.call_date && e.call_date >= from
-      );
+      result = result.filter((e) => e.call_date && e.call_date >= from);
     }
     if (filters.dateTo) {
       const to = new Date(filters.dateTo);
       to.setHours(23, 59, 59);
-      result = result.filter(
-        (e) => e.call_date && e.call_date <= to
-      );
+      result = result.filter((e) => e.call_date && e.call_date <= to);
     }
 
-    // Search
     if (filters.search) {
       const q = filters.search.toLowerCase();
       result = result.filter(
@@ -119,7 +129,6 @@ export default function Dashboard({ rawEvents, rawSummaries }: Props) {
       const aVal = a[sortKey];
       const bVal = b[sortKey];
 
-      // Handle nulls — push to bottom
       if (aVal === null && bVal === null) return 0;
       if (aVal === null) return 1;
       if (bVal === null) return -1;
@@ -139,30 +148,14 @@ export default function Dashboard({ rawEvents, rawSummaries }: Props) {
     return sorted;
   }, [filteredEvents, sortKey, sortDir]);
 
-  // KPIs
-  const kpis: KPIData = useMemo(() => {
-    const nonDatapoint = events.filter(
-      (e) => e.scope !== "market_datapoint"
-    );
-    const confirmed = events.filter(
-      (e) =>
-        e.scope === "called_vs_announced" &&
-        e.official_announce_date !== null
-    );
-    const rumors = events.filter(
-      (e) => e.scope === "rumor_unconfirmed"
-    );
-    const deltas = confirmed
-      .map((e) => e.delta_days_call_to_announce)
-      .filter((d): d is number => d !== null && d >= 0);
+  // KPIs (extended)
+  const kpis = useMemo(() => calcKPIs(events), [events]);
 
-    return {
-      totalEvents: nonDatapoint.length,
-      confirmedEvents: confirmed.length,
-      rumors: rumors.length,
-      medianDaysEarly: median(deltas),
-    };
-  }, [events]);
+  // Derived data
+  const headlines = useMemo(() => buildHeadlines(events), [events]);
+  const monthlyTimeline = useMemo(() => calcMonthlyTimeline(events), [events]);
+  const roundStageBreakdown = useMemo(() => calcRoundStageBreakdown(events), [events]);
+  const topRounds = useMemo(() => calcTopRounds(events), [events]);
 
   // Sort handler
   const handleSort = (key: SortKey) => {
@@ -176,39 +169,100 @@ export default function Dashboard({ rawEvents, rawSummaries }: Props) {
 
   return (
     <>
-      <Header />
+      {/* 1. Gradient Hero Header */}
+      <Header kpis={kpis} />
+
+      {/* 2. Headlines Ticker */}
+      <HeadlinesTicker headlines={headlines} />
+
+      {/* 3. KPI Cards */}
       <KPICards kpis={kpis} />
 
-      <TabBar
-        active={tab}
-        onChange={setTab}
-        eventCount={events.length}
-        summaryCount={summaries.length}
+      {/* 4. Filter Bar */}
+      <SectionHeader
+        title="Filters"
+        subtitle="Narrow down events"
+        icon={<SlidersHorizontal className="w-5 h-5" />}
       />
+      <div className="mb-2" />
+      <FilterBar filters={filters} onChange={setFilters} />
 
-      {tab === "events" ? (
-        <>
-          <FilterBar filters={filters} onChange={setFilters} />
-          <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-6">
-            <div className="xl:col-span-2">
-              <EventsTable
-                data={sortedEvents}
-                sortKey={sortKey}
-                sortDir={sortDir}
-                onSort={handleSort}
-                onRowClick={setDrawerRow}
-              />
-            </div>
-            <div>
-              <DaysEarlyChart events={events} />
-            </div>
-          </div>
-        </>
-      ) : (
+      {/* 5. Call Timeline */}
+      <SectionHeader
+        title="Call Timeline"
+        subtitle="Monthly call activity over time"
+        icon={<TrendingUp className="w-5 h-5" />}
+      />
+      <div className="mb-2" />
+      <div className="mb-8">
+        <CallTimelineChart data={monthlyTimeline} />
+      </div>
+
+      {/* 6. Two-column grid: Days Early + Round Stage */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div>
+          <SectionHeader
+            title="Days Early Distribution"
+            subtitle="Confirmed called vs. announced events"
+            icon={<BarChart3 className="w-5 h-5" />}
+          />
+          <div className="mb-2" />
+          <DaysEarlyChart events={events} />
+        </div>
+        <div>
+          <SectionHeader
+            title="Round Stage Breakdown"
+            subtitle="Distribution by funding stage"
+            icon={<PieIcon className="w-5 h-5" />}
+          />
+          <div className="mb-2" />
+          <RoundStageDonut data={roundStageBreakdown} />
+        </div>
+      </div>
+
+      {/* 7. Top Rounds by Size */}
+      <SectionHeader
+        title="Top Rounds by Size"
+        subtitle="Largest fundraising rounds tracked"
+        icon={<Trophy className="w-5 h-5" />}
+      />
+      <div className="mb-2" />
+      <div className="mb-8">
+        <TopRoundsList data={topRounds} />
+      </div>
+
+      {/* 8. Events Table */}
+      <SectionHeader
+        title="Events Table"
+        subtitle={`${sortedEvents.length} events — click any row for details`}
+        icon={<Table2 className="w-5 h-5" />}
+      />
+      <div className="mb-2" />
+      <div className="mb-8">
+        <EventsTable
+          data={sortedEvents}
+          sortKey={sortKey}
+          sortDir={sortDir}
+          onSort={handleSort}
+          onRowClick={setDrawerRow}
+        />
+      </div>
+
+      {/* 9. 34 Startup Summary */}
+      <SectionHeader
+        title="34 Startup Summary"
+        subtitle={`${summaries.length} startups — click to expand`}
+        icon={<Users className="w-5 h-5" />}
+      />
+      <div className="mb-2" />
+      <div className="mb-8">
         <SummaryTable data={summaries} />
-      )}
+      </div>
 
+      {/* 10. Footer */}
       <Footer />
+
+      {/* Detail Drawer */}
       <DetailDrawer row={drawerRow} onClose={() => setDrawerRow(null)} />
     </>
   );

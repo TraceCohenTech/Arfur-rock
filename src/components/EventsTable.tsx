@@ -44,8 +44,8 @@ export default function EventsTable({
   onRowClick,
 }: Props) {
   return (
-    <div className="glass-static overflow-hidden mb-8">
-      <div className="overflow-x-auto">
+    <div className="glass-static overflow-hidden">
+      <div className="overflow-x-auto max-h-[600px] overflow-y-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-slate-100">
@@ -53,7 +53,7 @@ export default function EventsTable({
                 <th
                   key={col.key}
                   onClick={() => onSort(col.key)}
-                  className={`sticky top-0 bg-white px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400 cursor-pointer hover:text-slate-600 transition-colors select-none ${col.className || ""}`}
+                  className={`sticky top-0 bg-white px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400 cursor-pointer hover:text-slate-600 transition-colors select-none z-10 ${col.className || ""}`}
                 >
                   <div className="flex items-center gap-1">
                     {col.label}

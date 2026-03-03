@@ -13,23 +13,18 @@ import {
   Cell,
 } from "recharts";
 import { EventRow } from "@/lib/types";
+import { useInView } from "@/hooks/useInView";
+import { DAYS_EARLY_BUCKETS, DAYS_EARLY_COLORS, CHART_COLORS, TOOLTIP_STYLE } from "@/utils/chartTheme";
+import { median } from "@/lib/utils";
 
 interface Props {
   events: EventRow[];
 }
 
-const BUCKETS = [
-  { label: "0–7", min: 0, max: 7 },
-  { label: "8–30", min: 8, max: 30 },
-  { label: "31–90", min: 31, max: 90 },
-  { label: "91–180", min: 91, max: 180 },
-  { label: "181+", min: 181, max: Infinity },
-];
-
-const COLORS = ["#f59e0b", "#d97706", "#b45309", "#92400e", "#78350f"];
-
 export default function DaysEarlyChart({ events }: Props) {
-  const chartData = useMemo(() => {
+  const [ref, inView] = useInView<HTMLDivElement>();
+
+  const { chartData, medianDays } = useMemo(() => {
     const confirmed = events.filter(
       (e) =>
         e.scope === "called_vs_announced" &&
@@ -38,7 +33,10 @@ export default function DaysEarlyChart({ events }: Props) {
         e.delta_days_call_to_announce >= 0
     );
 
-    return BUCKETS.map((bucket) => ({
+    const deltas = confirmed.map((e) => e.delta_days_call_to_announce!);
+    const med = median(deltas);
+
+    const data = DAYS_EARLY_BUCKETS.map((bucket) => ({
       name: bucket.label,
       count: confirmed.filter(
         (e) =>
@@ -46,21 +44,18 @@ export default function DaysEarlyChart({ events }: Props) {
           e.delta_days_call_to_announce! <= bucket.max
       ).length,
     }));
+
+    return { chartData: data, medianDays: med };
   }, [events]);
 
   return (
     <motion.div
+      ref={ref}
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.3 }}
-      className="glass-static p-5 mb-8"
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5 }}
+      className="glass-static p-5"
     >
-      <h3 className="text-sm font-semibold text-slate-900 mb-1">
-        Days Early Distribution
-      </h3>
-      <p className="text-xs text-slate-400 mb-4">
-        Confirmed called vs. announced events only
-      </p>
       <div className="h-[280px]">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
@@ -69,25 +64,25 @@ export default function DaysEarlyChart({ events }: Props) {
           >
             <CartesianGrid
               strokeDasharray="3 3"
-              stroke="#f1f5f9"
+              stroke={CHART_COLORS.grid}
               vertical={false}
             />
             <XAxis
               dataKey="name"
-              tick={{ fill: "#64748b", fontSize: 12 }}
-              axisLine={{ stroke: "#e2e8f0" }}
+              tick={{ fill: CHART_COLORS.tick, fontSize: 12 }}
+              axisLine={{ stroke: CHART_COLORS.axis }}
               tickLine={false}
               label={{
                 value: "Days",
                 position: "insideBottomRight",
                 offset: -4,
-                fill: "#94a3b8",
+                fill: CHART_COLORS.label,
                 fontSize: 11,
               }}
             />
             <YAxis
               allowDecimals={false}
-              tick={{ fill: "#64748b", fontSize: 12 }}
+              tick={{ fill: CHART_COLORS.tick, fontSize: 12 }}
               axisLine={false}
               tickLine={false}
               label={{
@@ -95,29 +90,34 @@ export default function DaysEarlyChart({ events }: Props) {
                 angle: -90,
                 position: "insideLeft",
                 offset: 10,
-                fill: "#94a3b8",
+                fill: CHART_COLORS.label,
                 fontSize: 11,
               }}
             />
             <Tooltip
-              contentStyle={{
-                backgroundColor: "#ffffff",
-                borderRadius: "12px",
-                border: "none",
-                boxShadow: "0 4px 24px rgba(0,0,0,0.12)",
-                padding: "8px 12px",
-              }}
-              labelStyle={{ fontWeight: 600, color: "#0f172a" }}
+              {...TOOLTIP_STYLE}
               formatter={(value) => [`${value} events`, "Count"]}
             />
             <Bar dataKey="count" radius={[6, 6, 0, 0]} maxBarSize={48}>
               {chartData.map((_, index) => (
-                <Cell key={index} fill={COLORS[index]} />
+                <Cell key={index} fill={DAYS_EARLY_COLORS[index]} />
               ))}
             </Bar>
           </BarChart>
         </ResponsiveContainer>
       </div>
+
+      {/* Chart insight callout */}
+      {medianDays !== null && (
+        <div className="chart-insight mt-4 py-2 px-3 rounded-r-lg">
+          <p className="text-sm text-slate-600">
+            <span className="font-semibold text-amber-700">
+              {Math.round(medianDays)} day
+            </span>{" "}
+            median lead time on confirmed calls
+          </p>
+        </div>
+      )}
     </motion.div>
   );
 }
