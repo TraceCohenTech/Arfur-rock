@@ -1,0 +1,61 @@
+scope,company,call_date,call_source_type,call_note,round_amount,valuation,round_stage,official_announce_date,official_announce_source,announce_note,delta_days_call_to_announce
+called_vs_announced,Mercor,2025-06-26 00:00:00,tweet,Preemptive offers up to ~$10B; declined offers (per Arfur),$350M,$10B,Series C,2025-10-27,TechCrunch: Mercor quintuples valuation to $10B with $350M Series C,Round led by Felicis (per TechCrunch),123.0
+called_vs_announced,Mercor,2025-09-09 00:00:00,tweet,Mercor stopped declining $10B offers; 'known secret',$350M,$10B,Series C,2025-10-27,TechCrunch,,48.0
+called_vs_announced,Black Forest Labs,2025-09-09 00:00:00,tweet,"~$100M ARR, +3.5x YoY; highlighted revenue deal with Meta; 'time to pay attention'",$300M,$3.25B,Series B,2025-12-01,TechCrunch: Black Forest Labs raises $300M at $3.25B valuation,Co-led by Salesforce Ventures and Anjney Midha (per TechCrunch),83.0
+called_vs_announced,Function Health,2025-05-05 00:00:00,tweet,~$100M run rate at round; 5x YoY; 'Redpoint leading' (per Arfur),$298M,$2.5B,Series B,2025-11-19,TechCrunch: Function Health closes $298M Series B at $2.5B valuation,,198.0
+called_vs_announced,Cognition,2025-07-21 00:00:00,tweet,$10B valuation? (speculated),~$400M,$10.2B post,Round (led by Founders Fund),2025-09-08,Cognition blog / TechCrunch,,49.0
+called_vs_announced,Valence,2025-06-02 00:00:00,tweet,Pre-emption interest for ~$40M Series B (per Arfur),$50M,,Series B,2025-09-25,PR Newswire / Valence press release,Led by Bessemer Venture Partners (per press release),115.0
+called_vs_announced,Parallel Web Systems,2025-09-29 00:00:00,tweet,'Parallel raised $100 at $700M' (per Arfur),$100M,$740M (Reuters),Series A,2025-11-12,"Reuters: Parallel raises $100M, valuation $740M",Co-led by Index Ventures and Kleiner Perkins (per Reuters/Index),44.0
+called_vs_announced,Fomo,2025-10-01 00:00:00,tweet,'Benchmark @ $100?' (teaser),$17M,,Series A,2025-11-06,TechCrunch / fomo blog post,Benchmark led (per TechCrunch),36.0
+called_vs_announced,Anthropic,2025-10-30 00:00:00,tweet,Anthropic soon ~$300B (not yet reported),,$350B (talks),Potential new funding (talks),2025-11-06,Business Insider (reported) / Reuters (confirmed BI report),Media report; not a company press release,7.0
+rumor_unconfirmed,Cursor (Anysphere),2026-03-02 00:00:00,tweet,Rumor: priced at $50B; $2.3B run rate; growing 25% MoM (SPV chatter),,$50B (rumor),Rumored round,,,No public primary announcement found in this pass,
+rumor_unconfirmed,Mach Industries,2026-03-02 00:00:00,tweet,'$200M Series C in the works' (per Arfur),$200M (rumor),,Series C (rumor),,,Product announcement for Dart is public; financing not confirmed here,
+ArfurRock_34_startups_summary,NewLimit (@newlimit),2025-07-21,tweet,Raising at $1.5B+ valuation (up from May Series B at $800M),,,,,,,
+ArfurRock_34_startups_summary,Cognition (@cognition_labs),2025-07-21,tweet,Raising at $10B valuation (speculated),,,,,,,
+ArfurRock_34_startups_summary,Pagaleve (@pagaleve),2025-06-05,tweet,Raising $20–$30M Series B,,,,,,,
+ArfurRock_34_startups_summary,Crescendo,2025-06-04,tweet,$100M round coming together (unspecified series),,,,,,,
+ArfurRock_34_startups_summary,The Collagen Co (us.thecollagen.co),2025-06-03,tweet,"Bootstrapped, raising first round",,,,,,,
+ArfurRock_34_startups_summary,Nelo (nelo.mx),2025-06-03,tweet,Unspecified (likely raising),,,,,,,
+ArfurRock_34_startups_summary,Valence (valence.co),2025-06-02,tweet,Raising ~$40M Series B (pre-emption interest),,,,,,,
+ArfurRock_34_startups_summary,Flex (@FlexSuperApp),2025-06-02,tweet,"Unspecified (likely raising, previous $225M: $25M equity from Titanium, others; $200M debt from Victory Park)",,,,,,,
+ArfurRock_34_startups_summary,Autopilot (@PelosiTracker_),2025-05-30,tweet,Raising $20M Series A,,,,,,,
+ArfurRock_34_startups_summary,Halter (@halterHQ),2025-05-29,tweet,Closed $100M at $1B post-money valuation,,,,,,,
+ArfurRock_34_startups_summary,EnduroSat (@EnduroSat),2025-05-28,tweet,Closed $49M Series B,,,,,,,
+ArfurRock_34_startups_summary,Acryl Data (@DataHubCloud),2025-05-21,tweet,Closed $35M Series B at $130M pre-money valuation,,,,,,,
+ArfurRock_34_startups_summary,"Datacurve AI (@datacurve_ai, YC W24)",2025-05-21,tweet,Closed $14M Series A at $150M valuation,,,,,,,
+ArfurRock_34_startups_summary,Finch (@finchcareapp),2025-05-19,tweet,"Bootstrapped, declining VC offers",,,,,,,
+ArfurRock_34_startups_summary,"Axiom Trading (@AxiomExchange, YC W25)",2025-05-16,tweet,Unspecified (likely raising),,,,,,,
+ArfurRock_34_startups_summary,Numeral (@NumeralTax),2025-05-15,tweet,Raising $30M Series B,,,,,,,
+ArfurRock_34_startups_summary,Wander,2025-05-07,tweet,"Confirmed $30M Series B, lead secured",,,,,,,
+ArfurRock_34_startups_summary,Cursor (Anysphere),2025-05-05,tweet,Closed $900M round at $9.9B post-money valuation (up from ~$600M at $9.6B),,,,,,,
+ArfurRock_34_startups_summary,Groww,2025-03-26,tweet,Closing $200M,,,,,,,
+ArfurRock_34_startups_summary,FlyFlat,2025-03-06,tweet,Closed $3M oversubscribed Seed round,,,,,,,
+ArfurRock_34_startups_summary,Zolve (@zolve_official),2024-05-20,tweet,Raising Series B,,,,,,,
+ArfurRock_34_startups_summary,Sacheu (@sacheu),2024-05-19,tweet,Raising (unspecified round),,,,,,,
+ArfurRock_34_startups_summary,Kiwi (kiwicredito.com),2024-05-19,tweet,Raising $8M Series A,,,,,,,
+ArfurRock_34_startups_summary,EasyDMARC (@easydmarc),2024-05-19,tweet,Raising Series A,,,,,,,
+ArfurRock_34_startups_summary,Check (@check_hq),2024-05-19,tweet,Raising $25M (unspecified round),,,,,,,
+ArfurRock_34_startups_summary,Clay (@clayrunhq),2024-05-19,tweet,Closed (unannounced) round at $500M post-money valuation,,,,,,,
+ArfurRock_34_startups_summary,Pearl (hellopearl.com),2024-05-18,tweet,Closed Series B at $400M post-money valuation,,,,,,,
+ArfurRock_34_startups_summary,ARB Interactive (arbinteractive.com),2024-05-18,tweet,Raising (unspecified round),,,,,,,
+ArfurRock_34_startups_summary,Legion (@legiontech),2024-05-18,tweet,Closing Series D soon,,,,,,,
+ArfurRock_34_startups_summary,Wonderschool (@wonderschools),2024-05-18,tweet,Raising (unspecified round),,,,,,,
+ArfurRock_34_startups_summary,QA Wolf (@QAWolfHQ),2024-05-18,tweet,Raising (unspecified round),,,,,,,
+ArfurRock_34_startups_summary,Huntress (@HuntressLabs),2024-05-18,tweet,Raising Series D,,,,,,,
+ArfurRock_34_startups_summary,Responsive (@responsiveio),2024-05-18,tweet,Raising (unspecified round),,,,,,,
+ArfurRock_34_startups_summary,11x (11x.ai),2024-05-18,tweet,Closed Series A at $90M post-money valuation,,,,,,,
+called_vs_announced,Sperm Racing,2025-12-12 00:00:00,tweet,Arfur: '2 months early on Sperm Racing' (quote: Eric Zhu says 'sperm racing just raised $10M'),$10M,$75M (reported),Seed (reported),2025-12-12 00:00:00,Eric Zhu tweet / X trending summary,Public tweet states the raise; other reporting cites $75M valuation and $10M seed.,0.0
+called_vs_announced,OpenEvidence,2025-12-12 00:00:00,tweet,Arfur: 'OpenEvidence raising $250M at $12B' with RR/growth/margins commentary (also cites The Information).,$250M,$12B,Series D,2026-01-21 00:00:00,Business Wire / Reuters / TechCrunch (company announcement),OpenEvidence announced $250M Series D at $12B valuation.,40.0
+called_vs_announced,ClickHouse,2026-01-14 00:00:00,tweet,Arfur: 'Correct - Dragoneer leading' (re: ClickHouse raise at ~$15B valuation),$400M,$15B,Series D,2026-01-16 00:00:00,Reuters / ClickHouse blog post (company announcement),Series D led by Dragoneer; company and Reuters reported the $15B valuation.,2.0
+rumor_unconfirmed,Slash,2026-02-02 00:00:00,tweet,"Arfur: Slash being preempted for a $100M+ round; ~ $250M RR, ~4x YoY, ~10% EBITDA; stablecoin rails.",$100M+ (rumor),,Round (rumor),,,No public funding announcement matched in this pass.,
+rumor_unconfirmed,Micro1,2026-02-02 00:00:00,tweet,"Arfur: Micro1 $200M RR, +2x from ~3 months; will cross ~$1B this year; $100M round coming together. Earlier (Jun 16 2025) noted only $6M raised and interest for $30M+ Series A.",$100M (rumor),,Round (rumor),,,No public funding announcement matched in this pass.,
+rumor_unconfirmed,Listen,2026-01-14 00:00:00,tweet,"Quote-tweet: 'Today, Listen crossed $100M in funding' (Dragoneer leading per Arfur quote context).",,,Funding milestone,,Alfred Wahlforss tweet highlights (X),Milestone tweet; no formal press release matched.,
+market_datapoint,Sourcegraph (ads),2025-12-12 00:00:00,tweet,"Arfur citing The Information: advertisers willing to pay $500-$1,000 per qualified action; ads generating $5M-$10M annualized revenue.",,,Revenue datapoint,2025-11-17 00:00:00,The Information newsletter (AI Agenda) / Kyle Wiggers tweet thread re: Sourcegraph ads,Not a fundraise; keep as datapoint for the ecosystem dashboard.,-25.0
+called_vs_announced,Lighter.xyz,2025-11-10 00:00:00,tweet,"Arfur: Lighter.xyz raised ~$100M at $1.5B led by Founders Fund and Ribbit. (Earlier shorthand call by @hft_larp on Oct 21, 2025: 'L XYZ @ 1.5 FF R'.)",$68M,$1.5B,Funding round (equity + token warrants),2025-11-11 00:00:00,Fortune report; also covered by The Block (citing Fortune),Fortune reported $68M at ~$1.5B; Founders Fund + Ribbit led; participation incl. Haun Ventures and Robinhood.,1.0
+market_datapoint,BillionToOne,2025-11-07 00:00:00,tweet,Arfur: Hummingbird owns 22% and Libertus 10% (HB affiliates ~33%) in BillionToOne around IPO discussion (quote-tweet thread).,,,Ownership datapoint,2025-11-07 00:00:00,BillionToOne IPO closing press release; Reuters coverage of IPO debut; SEC filings for ownership details,"IPO began trading Nov 6, 2025; closing announced Nov 7, 2025. Ownership specifics should be validated against 13D/13G filings.",0.0
+called_vs_announced,Base Power,2025-08-22 00:00:00,tweet,"Arfur (Aug 22, 2025): raising Series C; target $500M at $3B pre, with demand up to ~$1B.",$1B,$3B pre,Series C,2025-10-08 00:00:00,Business Wire press release; TechCrunch; Reuters,Base Power announced $1B Series C led by Addition.,47.0
+called_vs_announced,The General Intelligence Company of New York,2025-10-01 00:00:00,tweet,"Arfur (Oct 1, 2025): 'raised $8M Series A led by USV' (Cofounder).",$8.7M,,Seed,2025-12-08 00:00:00,Company blog post + USV blog post (seed announcement),Company announced $8.7M seed led by USV; Arfur framed it earlier as $8M Series A.,68.0
+market_datapoint,Harmonic / startup.stream,2025-08-13 00:00:00,tweet,"Arfur: partnered with Harmonic to create startup.stream, a curated list of stealth startups; updated weekly.",,,Product/partnership,2025-08-13 00:00:00,startup.stream + Harmonic posts,Not a fundraise; include as ecosystem datapoint.,0.0
+called_vs_announced,Mercor,2025-09-10 00:00:00,tweet,Arfur: TC confirmed intel; Mercor engaging investors for round at $10B+ (hours after prior post).,$350M,$10B+,Series C,2025-10-27 00:00:00,TechCrunch (Mercor $350M Series C at $10B),Arfur notes confirmation timing; official TechCrunch story later covered the round.,47.0
+called_vs_announced,Cognition,2025-09-08 00:00:00,tweet,Arfur: '$10B valuation indeed' quoting Cognition announcement: raised $400M+ at $10.2B post; led by Founders Fund.,$400M+,$10.2B post,Round,2025-09-08 00:00:00,Cognition announcement,Company post announcing raise led by Founders Fund.,0.0
+rumor_unconfirmed,ZeroClick,2025-09-05 00:00:00,tweet,Arfur: ZeroClick emerged from stealth with $55M Series A two weeks prior; growth funds offering terms for preemptive ~$100M Series B.,~$100M (rumor),,"Series B (preemptive, rumor)",,,No official Series B announcement matched in this ingestion.,
