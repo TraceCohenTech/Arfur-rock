@@ -1,9 +1,10 @@
 import fs from "fs";
 import path from "path";
 import { parseCSVData } from "@/lib/parseData";
+import { parseTweets } from "@/lib/parseTweets";
 import Dashboard from "@/components/Dashboard";
 
-// CSV path — change this if you move the file
+// Data paths
 const CSV_PATH = path.join(
   process.cwd(),
   "public",
@@ -11,9 +12,20 @@ const CSV_PATH = path.join(
   "arfurrock_dashboard_master_v5.csv"
 );
 
+const TWEETS_PATH = path.join(
+  process.cwd(),
+  "public",
+  "data",
+  "arfur_tweets.txt"
+);
+
 export default function Page() {
   const csvText = fs.readFileSync(CSV_PATH, "utf-8");
   const { events, summaries } = parseCSVData(csvText);
+
+  // Parse tweets
+  const tweetsText = fs.readFileSync(TWEETS_PATH, "utf-8");
+  const tweets = parseTweets(tweetsText);
 
   // Serialize dates for client transport
   const serializedEvents = events.map((e) => ({
@@ -35,6 +47,7 @@ export default function Page() {
         <Dashboard
           rawEvents={serializedEvents}
           rawSummaries={serializedSummaries}
+          tweets={tweets}
         />
       </div>
     </main>

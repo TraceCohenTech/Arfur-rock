@@ -9,6 +9,7 @@ import {
   calcTopRounds,
   buildHeadlines,
 } from "@/utils/calculations";
+import { Tweet } from "@/lib/parseTweets";
 import {
   BarChart3,
   TrendingUp,
@@ -17,6 +18,7 @@ import {
   Table2,
   Users,
   SlidersHorizontal,
+  MessageCircle,
 } from "lucide-react";
 import Header from "./Header";
 import HeadlinesTicker from "./HeadlinesTicker";
@@ -29,6 +31,7 @@ import RoundStageDonut from "./RoundStageDonut";
 import TopRoundsList from "./TopRoundsList";
 import EventsTable from "./EventsTable";
 import SummaryTable from "./SummaryTable";
+import TweetsFeed from "./TweetsFeed";
 import DetailDrawer from "./DetailDrawer";
 import Footer from "./Footer";
 
@@ -45,9 +48,10 @@ interface SerializedSummary extends Omit<SummaryRow, "call_date"> {
 interface Props {
   rawEvents: SerializedEvent[];
   rawSummaries: SerializedSummary[];
+  tweets: Tweet[];
 }
 
-export default function Dashboard({ rawEvents, rawSummaries }: Props) {
+export default function Dashboard({ rawEvents, rawSummaries, tweets }: Props) {
   // Hydrate dates
   const events: EventRow[] = useMemo(
     () =>
@@ -231,7 +235,18 @@ export default function Dashboard({ rawEvents, rawSummaries }: Props) {
         <TopRoundsList data={topRounds} />
       </div>
 
-      {/* 8. Events Table */}
+      {/* 8. @ArfurRock Intel Feed */}
+      <SectionHeader
+        title="@ArfurRock Intel Feed"
+        subtitle={`${tweets.length} tweets — funding rounds, confirmations, and rumors`}
+        icon={<MessageCircle className="w-5 h-5" />}
+      />
+      <div className="mb-2" />
+      <div className="mb-8">
+        <TweetsFeed tweets={tweets} />
+      </div>
+
+      {/* 9. Events Table */}
       <SectionHeader
         title="Events Table"
         subtitle={`${sortedEvents.length} events — click any row for details`}
@@ -248,7 +263,7 @@ export default function Dashboard({ rawEvents, rawSummaries }: Props) {
         />
       </div>
 
-      {/* 9. 34 Startup Summary */}
+      {/* 10. 34 Startup Summary */}
       <SectionHeader
         title="34 Startup Summary"
         subtitle={`${summaries.length} startups — click to expand`}
@@ -259,7 +274,7 @@ export default function Dashboard({ rawEvents, rawSummaries }: Props) {
         <SummaryTable data={summaries} />
       </div>
 
-      {/* 10. Footer */}
+      {/* 11. Footer */}
       <Footer />
 
       {/* Detail Drawer */}
