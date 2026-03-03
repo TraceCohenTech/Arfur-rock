@@ -10,15 +10,16 @@ import {
   buildHeadlines,
 } from "@/utils/calculations";
 import { Tweet } from "@/lib/parseTweets";
+import { CompanyIntel } from "@/lib/parseCompanyIntel";
 import {
   BarChart3,
   TrendingUp,
   PieChart as PieIcon,
   Trophy,
   Table2,
-  Users,
   SlidersHorizontal,
   MessageCircle,
+  Building2,
 } from "lucide-react";
 import Header from "./Header";
 import HeadlinesTicker from "./HeadlinesTicker";
@@ -30,8 +31,8 @@ import DaysEarlyChart from "./DaysEarlyChart";
 import RoundStageDonut from "./RoundStageDonut";
 import TopRoundsList from "./TopRoundsList";
 import EventsTable from "./EventsTable";
-import SummaryTable from "./SummaryTable";
 import TweetsFeed from "./TweetsFeed";
+import CompanyIntelGrid from "./CompanyIntelGrid";
 import DetailDrawer from "./DetailDrawer";
 import Footer from "./Footer";
 
@@ -49,9 +50,10 @@ interface Props {
   rawEvents: SerializedEvent[];
   rawSummaries: SerializedSummary[];
   tweets: Tweet[];
+  companyIntel: CompanyIntel[];
 }
 
-export default function Dashboard({ rawEvents, rawSummaries, tweets }: Props) {
+export default function Dashboard({ rawEvents, rawSummaries, tweets, companyIntel }: Props) {
   // Hydrate dates
   const events: EventRow[] = useMemo(
     () =>
@@ -63,15 +65,6 @@ export default function Dashboard({ rawEvents, rawSummaries, tweets }: Props) {
           : null,
       })),
     [rawEvents]
-  );
-
-  const summaries: SummaryRow[] = useMemo(
-    () =>
-      rawSummaries.map((s) => ({
-        ...s,
-        call_date: s.call_date ? new Date(s.call_date) : null,
-      })),
-    [rawSummaries]
   );
 
   // State
@@ -263,15 +256,15 @@ export default function Dashboard({ rawEvents, rawSummaries, tweets }: Props) {
         />
       </div>
 
-      {/* 10. 34 Startup Summary */}
+      {/* 10. Company Intel */}
       <SectionHeader
-        title="34 Startup Summary"
-        subtitle={`${summaries.length} startups — click to expand`}
-        icon={<Users className="w-5 h-5" />}
+        title="Company Intel"
+        subtitle={`${companyIntel.length} companies — ARR, growth, investors, and fundraising status`}
+        icon={<Building2 className="w-5 h-5" />}
       />
       <div className="mb-2" />
       <div className="mb-8">
-        <SummaryTable data={summaries} />
+        <CompanyIntelGrid data={companyIntel} />
       </div>
 
       {/* 11. Footer */}

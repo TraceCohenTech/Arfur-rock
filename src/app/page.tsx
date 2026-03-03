@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { parseCSVData } from "@/lib/parseData";
 import { parseTweets } from "@/lib/parseTweets";
+import { parseCompanyIntel } from "@/lib/parseCompanyIntel";
 import Dashboard from "@/components/Dashboard";
 
 // Data paths
@@ -19,13 +20,22 @@ const TWEETS_PATH = path.join(
   "arfur_tweets.txt"
 );
 
+const INTEL_PATH = path.join(
+  process.cwd(),
+  "public",
+  "data",
+  "arfurrock_company_intel.csv"
+);
+
 export default function Page() {
   const csvText = fs.readFileSync(CSV_PATH, "utf-8");
   const { events, summaries } = parseCSVData(csvText);
 
-  // Parse tweets
   const tweetsText = fs.readFileSync(TWEETS_PATH, "utf-8");
   const tweets = parseTweets(tweetsText);
+
+  const intelText = fs.readFileSync(INTEL_PATH, "utf-8");
+  const companyIntel = parseCompanyIntel(intelText);
 
   // Serialize dates for client transport
   const serializedEvents = events.map((e) => ({
@@ -48,6 +58,7 @@ export default function Page() {
           rawEvents={serializedEvents}
           rawSummaries={serializedSummaries}
           tweets={tweets}
+          companyIntel={companyIntel}
         />
       </div>
     </main>
