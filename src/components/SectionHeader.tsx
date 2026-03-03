@@ -21,7 +21,7 @@ export default function SectionHeader({ title, subtitle, icon }: SectionHeaderPr
       className="flex items-center gap-3 mb-1"
     >
       {icon && (
-        <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-amber-50 text-amber-600 shrink-0">
+        <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-amber-100 to-orange-100 text-amber-600 shrink-0 shadow-sm shadow-amber-100">
           {icon}
         </div>
       )}
@@ -29,6 +29,7 @@ export default function SectionHeader({ title, subtitle, icon }: SectionHeaderPr
         <h2 className="text-lg font-bold text-slate-900">{title}</h2>
         {subtitle && <p className="text-sm text-slate-500">{subtitle}</p>}
       </div>
+      <div className="flex-1 h-px bg-gradient-to-r from-amber-200/60 to-transparent ml-4" />
     </motion.div>
   );
 }
