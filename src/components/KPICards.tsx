@@ -31,120 +31,79 @@ export default function KPICards({ kpis }: Props) {
   });
   const companies = useCountUp({ end: kpis.companiesTracked, enabled: inView, delay: 400 });
 
-  const primary = [
+  const cards = [
     {
       label: "Total Events",
       value: totalEvents,
       suffix: "",
       icon: Activity,
-      color: "text-amber-600",
-      bg: "bg-amber-50",
+      gradient: "from-amber-500 to-orange-400",
     },
     {
       label: "Confirmed",
       value: confirmed,
       suffix: "",
       icon: CheckCircle2,
-      color: "text-emerald-600",
-      bg: "bg-emerald-50",
+      gradient: "from-emerald-600 to-emerald-400",
     },
     {
       label: "Rumors",
       value: rumors,
       suffix: "",
       icon: HelpCircle,
-      color: "text-violet-600",
-      bg: "bg-violet-50",
+      gradient: "from-purple-600 to-purple-400",
     },
     {
-      label: "Median Days Early",
+      label: "Days Early",
       value: kpis.medianDaysEarly !== null ? medianDays : "—",
       suffix: kpis.medianDaysEarly !== null ? " days" : "",
       icon: Clock,
-      color: "text-blue-600",
-      bg: "bg-blue-50",
+      gradient: "from-blue-600 to-blue-400",
     },
-  ];
-
-  const secondary = [
     {
-      label: "Companies Tracked",
+      label: "Companies",
       value: companies,
+      suffix: "",
       icon: Building2,
-      color: "text-orange-600",
-      bg: "bg-orange-50",
+      gradient: "from-indigo-600 to-indigo-400",
     },
     {
-      label: "Total Capital",
+      label: "Capital",
       value: formatCompactMoney(kpis.totalCapital),
+      suffix: "",
       icon: DollarSign,
-      color: "text-amber-600",
-      bg: "bg-amber-50",
+      gradient: "from-rose-500 to-rose-400",
     },
   ];
 
   return (
-    <div ref={ref} className="space-y-4 mb-8">
-      {/* Primary KPIs */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {primary.map((card, i) => (
-          <motion.div
-            key={card.label}
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.05 * i }}
-            whileHover={{ y: -4 }}
-            className="glass p-5"
+    <div ref={ref} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
+      {cards.map((card, i) => (
+        <motion.div
+          key={card.label}
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.4, delay: 0.05 * i }}
+          className="glass rounded-2xl p-5"
+        >
+          <div
+            className={`w-10 h-10 rounded-xl bg-gradient-to-br ${card.gradient} flex items-center justify-center mb-3`}
           >
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                {card.label}
+            <card.icon className="w-5 h-5 text-white" />
+          </div>
+          <p className="text-3xl font-bold tracking-tight text-slate-900 tabular-nums leading-tight">
+            {card.value}
+            {card.suffix && (
+              <span className="text-sm font-medium text-slate-400">
+                {card.suffix}
               </span>
-              <div
-                className={`w-8 h-8 rounded-lg ${card.bg} flex items-center justify-center`}
-              >
-                <card.icon className={`w-4 h-4 ${card.color}`} />
-              </div>
-            </div>
-            <p className="text-3xl font-bold tracking-tight text-slate-900 tabular-nums">
-              {card.value}
-              {card.suffix && (
-                <span className="text-base font-normal text-slate-400 ml-1">
-                  {card.suffix}
-                </span>
-              )}
-            </p>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Secondary KPIs */}
-      <div className="grid grid-cols-2 gap-4">
-        {secondary.map((card, i) => (
-          <motion.div
-            key={card.label}
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.25 + 0.05 * i }}
-            whileHover={{ y: -2 }}
-            className="glass p-4 flex items-center gap-4"
-          >
-            <div
-              className={`w-10 h-10 rounded-lg ${card.bg} flex items-center justify-center shrink-0`}
-            >
-              <card.icon className={`w-5 h-5 ${card.color}`} />
-            </div>
-            <div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                {card.label}
-              </span>
-              <p className="text-xl font-bold tracking-tight text-slate-900 tabular-nums">
-                {card.value}
-              </p>
-            </div>
-          </motion.div>
-        ))}
-      </div>
+            )}
+          </p>
+          <span className="text-xs font-medium uppercase tracking-wider text-slate-500 mt-1 block">
+            {card.label}
+          </span>
+        </motion.div>
+      ))}
     </div>
   );
 }

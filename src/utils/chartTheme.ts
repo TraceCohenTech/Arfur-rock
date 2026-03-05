@@ -1,13 +1,13 @@
-// Amber/orange palette for ArfurRock charts
+// Distinct multi-color palette for charts
 export const AMBER_PALETTE = [
-  '#f59e0b', // amber-500
-  '#d97706', // amber-600
-  '#b45309', // amber-700
-  '#92400e', // amber-800
-  '#78350f', // amber-900
-  '#fbbf24', // amber-400
-  '#fcd34d', // amber-300
-  '#fde68a', // amber-200
+  '#f59e0b', // amber
+  '#6366f1', // indigo
+  '#10b981', // emerald
+  '#8b5cf6', // purple
+  '#3b82f6', // blue
+  '#f43f5e', // rose
+  '#f97316', // orange
+  '#06b6d4', // cyan
 ];
 
 export const CHART_COLORS = {

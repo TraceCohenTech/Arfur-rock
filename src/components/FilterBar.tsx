@@ -31,13 +31,7 @@ export default function FilterBar({ filters, onChange }: Props) {
   };
 
   return (
-    <div className="glass-static p-4 mb-6">
-      <div className="flex items-center gap-2 mb-3">
-        <SlidersHorizontal className="w-4 h-4 text-amber-500" />
-        <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-          Filters
-        </span>
-      </div>
+    <div className="glass-static p-4">
       <div className="flex flex-wrap items-center gap-3">
         {/* Search */}
         <div className="relative flex-1 min-w-[200px]">

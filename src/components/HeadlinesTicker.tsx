@@ -34,7 +34,7 @@ export default function HeadlinesTicker({ headlines }: Props) {
     >
       <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-white to-transparent z-10" />
       <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-white to-transparent z-10" />
-      <div className="ticker-track flex items-center gap-8 py-3 px-4 whitespace-nowrap">
+      <div className="ticker-track flex items-center gap-8 py-2 px-4 whitespace-nowrap">
         {doubled.map((h, i) => (
           <span key={i} className="flex items-center gap-2 text-sm">
             <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${typeDots[h.type]}`} />

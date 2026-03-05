@@ -9,7 +9,6 @@ import {
   calcTopRounds,
   buildHeadlines,
 } from "@/utils/calculations";
-import { Tweet } from "@/lib/parseTweets";
 import { CompanyIntel } from "@/lib/parseCompanyIntel";
 import {
   BarChart3,
@@ -17,21 +16,18 @@ import {
   PieChart as PieIcon,
   Trophy,
   Table2,
-  SlidersHorizontal,
-  MessageCircle,
   Building2,
 } from "lucide-react";
 import Header from "./Header";
 import HeadlinesTicker from "./HeadlinesTicker";
 import KPICards from "./KPICards";
-import FilterBar from "./FilterBar";
 import SectionHeader from "./SectionHeader";
 import CallTimelineChart from "./CallTimelineChart";
 import DaysEarlyChart from "./DaysEarlyChart";
 import RoundStageDonut from "./RoundStageDonut";
 import TopRoundsList from "./TopRoundsList";
 import EventsTable from "./EventsTable";
-import TweetsFeed from "./TweetsFeed";
+
 import CompanyIntelGrid from "./CompanyIntelGrid";
 import DetailDrawer from "./DetailDrawer";
 import Footer from "./Footer";
@@ -49,11 +45,10 @@ interface SerializedSummary extends Omit<SummaryRow, "call_date"> {
 interface Props {
   rawEvents: SerializedEvent[];
   rawSummaries: SerializedSummary[];
-  tweets: Tweet[];
   companyIntel: CompanyIntel[];
 }
 
-export default function Dashboard({ rawEvents, rawSummaries, tweets, companyIntel }: Props) {
+export default function Dashboard({ rawEvents, rawSummaries, companyIntel }: Props) {
   // Hydrate dates
   const events: EventRow[] = useMemo(
     () =>
@@ -175,35 +170,24 @@ export default function Dashboard({ rawEvents, rawSummaries, tweets, companyInte
       {/* 3. KPI Cards */}
       <KPICards kpis={kpis} />
 
-      {/* 4. Filter Bar */}
-      <SectionHeader
-        title="Filters"
-        subtitle="Narrow down events"
-        icon={<SlidersHorizontal className="w-5 h-5" />}
-      />
-      <div className="mb-2" />
-      <FilterBar filters={filters} onChange={setFilters} />
-
-      {/* 5. Call Timeline */}
+      {/* 4. Call Timeline */}
       <SectionHeader
         title="Call Timeline"
         subtitle="Monthly call activity over time"
         icon={<TrendingUp className="w-5 h-5" />}
       />
-      <div className="mb-2" />
-      <div className="mb-8">
+      <div className="mb-6">
         <CallTimelineChart data={monthlyTimeline} />
       </div>
 
       {/* 6. Two-column grid: Days Early + Round Stage */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
         <div>
           <SectionHeader
             title="Days Early Distribution"
             subtitle="Confirmed called vs. announced events"
             icon={<BarChart3 className="w-5 h-5" />}
           />
-          <div className="mb-2" />
           <DaysEarlyChart events={events} />
         </div>
         <div>
@@ -212,7 +196,6 @@ export default function Dashboard({ rawEvents, rawSummaries, tweets, companyInte
             subtitle="Distribution by funding stage"
             icon={<PieIcon className="w-5 h-5" />}
           />
-          <div className="mb-2" />
           <RoundStageDonut data={roundStageBreakdown} />
         </div>
       </div>
@@ -223,30 +206,17 @@ export default function Dashboard({ rawEvents, rawSummaries, tweets, companyInte
         subtitle="Largest fundraising rounds tracked"
         icon={<Trophy className="w-5 h-5" />}
       />
-      <div className="mb-2" />
-      <div className="mb-8">
+      <div className="mb-6">
         <TopRoundsList data={topRounds} />
       </div>
 
-      {/* 8. @ArfurRock Intel Feed */}
-      <SectionHeader
-        title="@ArfurRock Intel Feed"
-        subtitle={`${tweets.length} tweets — funding rounds, confirmations, and rumors`}
-        icon={<MessageCircle className="w-5 h-5" />}
-      />
-      <div className="mb-2" />
-      <div className="mb-8">
-        <TweetsFeed tweets={tweets} />
-      </div>
-
-      {/* 9. Events Table */}
+      {/* 8. Events Table */}
       <SectionHeader
         title="Events Table"
         subtitle={`${sortedEvents.length} events — click any row for details`}
         icon={<Table2 className="w-5 h-5" />}
       />
-      <div className="mb-2" />
-      <div className="mb-8">
+      <div className="mb-6">
         <EventsTable
           data={sortedEvents}
           sortKey={sortKey}
@@ -256,13 +226,12 @@ export default function Dashboard({ rawEvents, rawSummaries, tweets, companyInte
         />
       </div>
 
-      {/* 10. Company Intel */}
+      {/* 9. Company Intel */}
       <SectionHeader
         title="Company Intel"
         subtitle={`${companyIntel.length} companies — ARR, growth, investors, and fundraising status`}
         icon={<Building2 className="w-5 h-5" />}
       />
-      <div className="mb-2" />
       <div className="mb-8">
         <CompanyIntelGrid data={companyIntel} />
       </div>
