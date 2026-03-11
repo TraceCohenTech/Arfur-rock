@@ -141,16 +141,26 @@ function normalizeStage(raw: string): string {
 }
 
 export function calcTopRounds(events: EventRow[], limit = 10): TopRound[] {
-  const withAmount = events
+  const filtered = events
     .filter((e) => e.round_amount_num && e.round_amount_num > 0 && e.scope !== 'market_datapoint')
-    .sort((a, b) => (b.round_amount_num || 0) - (a.round_amount_num || 0))
-    .slice(0, limit);
+    .sort((a, b) => (b.round_amount_num || 0) - (a.round_amount_num || 0));
 
-  if (withAmount.length === 0) return [];
+  // Deduplicate by company, keeping the largest round
+  const seen = new Set<string>();
+  const withAmount: EventRow[] = [];
+  for (const e of filtered) {
+    if (!seen.has(e.company)) {
+      seen.add(e.company);
+      withAmount.push(e);
+    }
+  }
+  const top = withAmount.slice(0, limit);
 
-  const maxAmount = withAmount[0].round_amount_num || 1;
+  if (top.length === 0) return [];
 
-  return withAmount.map((e) => ({
+  const maxAmount = top[0].round_amount_num || 1;
+
+  return top.map((e) => ({
     company: e.company,
     amount: e.round_amount_num || 0,
     amountLabel: e.round_amount || '',
